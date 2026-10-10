@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Animator In.com Login</title>
+<style>
+  /* Layout: one centered black login card with blue outlined boxes */
+  :root {
+    --bg: #04060b;
+    --card: #000000;
+    --fg: #f2f5fa;
+    --muted: #9db0cc;
+    --blue: #2f7bff;
+    --blue-soft: #6aa2ff;
+    --blue-hover: #5a95ff;
+    --on-blue: #000000;
+    --ok-bg: #0a1a33;
+    --err-bg: #2a0f0e;
+    --err: #ff8a80;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-block: 24px;
+    padding-inline: 16px;
+    box-sizing: border-box;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--blue);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 24px rgba(47, 123, 255, 0.25);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .logo {
+    display: block;
+    width: 160px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 16px;
+    border-radius: 12px;
+    border: 2px solid var(--blue);
+  }
+  h2 { margin: 0 0 6px; text-wrap: balance; }
+  p { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+
+  .field { margin-bottom: 14px; }
+  input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 2px solid var(--blue);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: inherit;
+    background: #000;
+    color: var(--fg);
+  }
+  input::placeholder { color: var(--muted); opacity: 1; font-size: 14px; }
+  input:focus-visible {
+    outline: 3px solid var(--blue-soft);
+    outline-offset: 2px;
+  }
+  button {
+    width: 100%;
+    background: var(--blue);
+    color: var(--on-blue);
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: inherit;
+  }
+  button:hover { background: var(--blue-hover); }
+  button:focus-visible { outline: 3px solid var(--blue-soft); outline-offset: 2px; }
+
+  .fs {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    right: 12px;
+    width: auto;
+    margin: 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    background: transparent;
+    color: var(--blue-soft);
+    border: 2px solid var(--blue);
+  }
+  .fs:hover { background: var(--ok-bg); }
+  #fsTip { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 58px); right: 12px; max-width: 260px; margin: 0; font-size: 13px; text-align: left; }
+
+  .msg {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  #success { background: var(--ok-bg); border: 1px solid var(--blue); color: var(--blue-soft); }
+  #error { background: var(--err-bg); border: 1px solid var(--err); color: var(--err); font-size: 14px; }
+</style>
+
+</head>
+<body>
+<button type="button" class="fs" id="fsBtn">⛶ Full Screen</button>
+<p class="msg" id="fsTip" hidden>Full screen is blocked here. On iPad, tap the Share button, then "Add to Home Screen," and open it from there for full screen.</p>
+
+<div class="card">
+  <img class="logo" src="logo.gif" alt="Three stick figures, one red, one green and one yellow, standing in a circle">
+
+  <h2>Animator In.com Login</h2>
+  <p>Please enter your account details below to gain access:</p>
+
+  <form id="loginForm" autocomplete="off">
+    <div class="field">
+      <input type="text" id="username" placeholder="Username" aria-label="Username">
+    </div>
+
+    <div class="field">
+      <input type="password" id="password" placeholder="Password" aria-label="Password">
+    </div>
+
+    <div class="field">
+      <input type="text" id="email" placeholder="Email" aria-label="Email">
+    </div>
+
+    <button type="submit">Continue to Portal</button>
+  </form>
+
+  <div class="msg" id="error" role="alert" hidden>❌ Incorrect login details. Please try again.</div>
+
+  <div class="msg" id="success" role="status" hidden>
+    🎉 CONGRATULATIONS!<br><br>
+    now you can watch all the animations you want enjoy the show of if you wanna watch without ads get premium😁
+  </div>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('fsBtn');
+    var tip = document.getElementById('fsTip');
+    var root = document.documentElement;
+    function isFull() { return document.fullscreenElement || document.webkitFullscreenElement; }
+    function showTip() { tip.hidden = false; setTimeout(function () { tip.hidden = true; }, 8000); }
+    btn.addEventListener('click', function () {
+      try {
+        var p;
+        if (isFull()) {
+          p = (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        } else {
+          var req = root.requestFullscreen || root.webkitRequestFullscreen;
+          if (!req) { showTip(); return; }
+          p = req.call(root);
+        }
+        if (p && p.catch) p.catch(showTip);
+      } catch (err) { showTip(); }
+    });
+    function sync() { btn.textContent = isFull() ? '✕ Exit Full Screen' : '⛶ Full Screen'; }
+    document.addEventListener('fullscreenchange', sync);
+    document.addEventListener('webkitfullscreenchange', sync);
+  })();
+
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var pass = document.getElementById('password').value;
+    var email = document.getElementById('email').value;
+
+    // Needs the exact password and email, but ignores what is typed in the username
+    var ok = pass === "152df56hfji" && email === "super awesome finnley dude12";
+    document.getElementById('success').hidden = !ok;
+    document.getElementById('error').hidden = ok;
+  });
+</script>
+</body>
+</html>
