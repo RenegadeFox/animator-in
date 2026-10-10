@@ -65,7 +65,7 @@ loginForm.addEventListener("submit", function (event) {
 
   // Needs the exact password and email, but ignores what is typed in the username
   var loginIsCorrect =
-    passwordInput.value === CORRECT_PASSWORD && emailInput.value === CORRECT_EMAIL;
+    passwordInput.value === CORRECT_PASSWORD && emailInput.value.toLowerCase() === CORRECT_EMAIL;
 
   successMessage.hidden = !loginIsCorrect;
   errorMessage.hidden = loginIsCorrect;
