@@ -1,8 +1,8 @@
 // Animator In.com Login
 
 // ---------- Settings (change the secret login here) ----------
-var CORRECT_PASSWORD = "152df56hfji";
-var CORRECT_EMAIL = "super awesome finnley dude12";
+var CORRECT_PASSWORD = "password!123";
+var EMAIL_MUST_END_WITH = "mail.com"; // the email can be anything, but it has to end with this
 var PORTAL_PAGE = "portal.html"; // the page you go to after a correct login
 
 // ---------- Things on the page ----------
@@ -63,9 +63,12 @@ document.addEventListener("webkitfullscreenchange", updateFullscreenButtonText);
 loginForm.addEventListener("submit", function (event) {
   event.preventDefault(); // stops the page from reloading
 
-  // Needs the exact password and email, but ignores what is typed in the username
-  var loginIsCorrect =
-    passwordInput.value === CORRECT_PASSWORD && emailInput.value.toLowerCase() === CORRECT_EMAIL;
+  // The password has to match exactly.
+  // The email can be anything as long as it ends with "mail.com" (capital letters are OK).
+  // What is typed in the username box does not matter.
+  var passwordIsCorrect = passwordInput.value === CORRECT_PASSWORD;
+  var emailIsCorrect = emailInput.value.trim().toLowerCase().endsWith(EMAIL_MUST_END_WITH);
+  var loginIsCorrect = passwordIsCorrect && emailIsCorrect;
 
   if (loginIsCorrect) {
     // Go to the new page
