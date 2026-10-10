@@ -1,0 +1,161 @@
+/* Animator In.com Portal
+   Layout: purple stick figure on the left, big blue box in the middle,
+   pig on the right. On narrow screens they stack top to bottom. */
+
+/* ---------- Colors and sizes (change them here) ---------- */
+:root {
+  --page-background: #000000;
+  --box-background: #000000;
+  --box-border-color: #14297a;
+  --text-color: #ffffff;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --character-width: clamp(90px, 16vw, 220px);   /* how big the purple figure and pig are */
+  --gap: clamp(16px, 5vw, 100px);                /* space between the pig and the box */
+
+  /* How far the pig runs to hit the box (left on wide screens, up on narrow ones) */
+  --lunge-x: calc(var(--gap) * -1);
+  --lunge-y: 0px;
+
+  color-scheme: dark;
+}
+
+/* ---------- Page ---------- */
+body {
+  background: var(--page-background);
+  color: var(--text-color);
+  font-family: var(--font);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 24px;
+  padding-inline: 16px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.stage {
+  width: 100%;
+  max-width: 1300px;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 440px) 1fr;
+  align-items: center;
+}
+
+/* ---------- The blue box ---------- */
+.blue-box {
+  border: 10px solid var(--box-border-color);
+  border-radius: 24px;
+  background: var(--box-background);
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: box-gets-hit 3s ease-in-out infinite;
+}
+
+.box-text {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 36px);
+  line-height: 1.25;
+}
+
+.dancers-gif {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+/* ---------- Purple stick figure ---------- */
+.purple-stick-figure {
+  width: var(--character-width);
+  height: auto;
+  justify-self: end;
+  margin-right: var(--gap);
+  animation: bob-up-and-down 1.2s ease-in-out infinite alternate;
+}
+
+/* ---------- Pig ---------- */
+.sword-pig {
+  width: var(--character-width);
+  height: auto;
+  justify-self: start;
+  margin-left: var(--gap);
+  transform-origin: 70% 85%;      /* the pig swings from near his feet */
+  animation: pig-attacks-box 3s ease-in-out infinite;
+}
+
+/* ---------- Animations ---------- */
+
+/* Purple figure goes up, then back down, again and again */
+@keyframes bob-up-and-down {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-22px); }
+}
+
+/* The pig pulls back, runs at the box, swings his sword, then goes back */
+@keyframes pig-attacks-box {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  18%  { transform: translate(calc(var(--lunge-x) * -0.15), calc(var(--lunge-y) * -0.15)) rotate(14deg); }  /* wind up */
+  34%  { transform: translate(var(--lunge-x), var(--lunge-y)) rotate(-28deg); }                           /* swing and hit! */
+  42%  { transform: translate(var(--lunge-x), var(--lunge-y)) rotate(-28deg); }                           /* stay on the box a moment */
+  62%  { transform: translate(calc(var(--lunge-x) * 0.2), calc(var(--lunge-y) * 0.2)) rotate(4deg); }     /* bounce back */
+  80%, 100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* The box wobbles when the pig hits it (same timing as the pig) */
+@keyframes box-gets-hit {
+  0%, 33%  { transform: translate(0, 0) rotate(0deg); }
+  36%      { transform: translate(-7px, 0) rotate(-1deg); }
+  40%      { transform: translate(5px, 0) rotate(0.8deg); }
+  45%      { transform: translate(-3px, 0) rotate(-0.4deg); }
+  50%, 100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ---------- Narrow screens (phones): stack everything ---------- */
+@media (max-width: 700px) {
+  :root {
+    --character-width: clamp(110px, 34vw, 190px);
+    --gap: 56px;
+    --lunge-x: 0px;
+    --lunge-y: calc(var(--gap) * -1);   /* the pig runs up at the box */
+  }
+
+  .stage {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 20px;
+  }
+
+  .purple-stick-figure {
+    justify-self: center;
+    margin-right: 0;
+    order: 1;
+  }
+
+  .blue-box {
+    order: 2;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sword-pig {
+    justify-self: center;
+    margin-left: 0;
+    margin-top: var(--gap);
+    order: 3;
+  }
+}
+
+/* People who turn on "Reduce Motion" get a still page */
+@media (prefers-reduced-motion: reduce) {
+  .purple-stick-figure,
+  .sword-pig,
+  .blue-box {
+    animation: none;
+  }
+}

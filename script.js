@@ -3,6 +3,7 @@
 // ---------- Settings (change the secret login here) ----------
 var CORRECT_PASSWORD = "152df56hfji";
 var CORRECT_EMAIL = "super awesome finnley dude12";
+var PORTAL_PAGE = "portal.html"; // the page you go to after a correct login
 
 // ---------- Things on the page ----------
 var fullscreenButton = document.getElementById("fullscreen-button");
@@ -10,7 +11,6 @@ var fullscreenTip = document.getElementById("fullscreen-tip");
 var loginForm = document.getElementById("login-form");
 var passwordInput = document.getElementById("password-input");
 var emailInput = document.getElementById("email-input");
-var successMessage = document.getElementById("success-message");
 var errorMessage = document.getElementById("error-message");
 
 // ---------- Full screen button ----------
@@ -67,6 +67,10 @@ loginForm.addEventListener("submit", function (event) {
   var loginIsCorrect =
     passwordInput.value === CORRECT_PASSWORD && emailInput.value.toLowerCase() === CORRECT_EMAIL;
 
-  successMessage.hidden = !loginIsCorrect;
-  errorMessage.hidden = loginIsCorrect;
+  if (loginIsCorrect) {
+    // Go to the new page
+    window.location.href = PORTAL_PAGE;
+  } else {
+    errorMessage.hidden = false;
+  }
 });

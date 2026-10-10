@@ -34,17 +34,13 @@
         <input type="text" id="email-input" placeholder="Email" aria-label="Email">
       </div>
 
-      <button type="submit" class="login-button">Continue to Portal</button>
+      <button type="submit" class="login-button">Continue</button>
     </form>
 
-    <!-- These two messages start hidden. script.js shows one of them. -->
+    <!-- Starts hidden. script.js shows it when the login is wrong.
+         When the login is right, script.js sends you to portal.html instead. -->
     <div class="message-box error-message" id="error-message" role="alert" hidden>
       ❌ Incorrect login details. Please try again.
-    </div>
-
-    <div class="message-box success-message" id="success-message" role="status" hidden>
-      🎉 CONGRATULATIONS!<br><br>
-      now you can watch all the animations you want enjoy the show. If you wanna watch without ads get premium😁
     </div>
   </main>
 
