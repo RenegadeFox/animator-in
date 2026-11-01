@@ -3,8 +3,8 @@
 // tells you what to watch.
 
 // ---------- Settings (change them here) ----------
-var SECONDS_PER_SCREEN = 10; // how long each loading screen stays
-var SECONDS_PER_RESULT = 6;  // how long the first Teal screen stays before the next one
+var SECONDS_PER_SCREEN = 5; // how long each loading screen stays
+var SECONDS_PER_RESULT = 5; // how long the first Teal screen stays before the next one
 
 // The words at the top of each loading screen, in order.
 // The first screen has no words.
