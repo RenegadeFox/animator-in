@@ -51,7 +51,11 @@ SHOWS.forEach(function (show) {
   image.draggable = false;
 
   button.addEventListener("click", function () {
-    showStatusMessage("“" + show.title + "” is coming soon!");
+    if (show.page) {
+      window.location.href = show.page; // shows with their own page open it
+    } else {
+      showStatusMessage("“" + show.title + "” is coming soon!");
+    }
   });
 
   button.appendChild(image);

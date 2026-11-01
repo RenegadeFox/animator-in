@@ -1,0 +1,189 @@
+/* Animator In.com Show
+   Layout: a wide banner picture, the show name, then the season button
+   on the left with the list of episodes on the right. */
+
+/* ---------- Colors and sizes (change them here) ---------- */
+:root {
+  --page-background: #000000;
+  --text-color: #ffffff;
+  --season-outer: #848484;        /* the gray season button */
+  --season-inner: #919191;
+  --season-inner-off: #5c5c5c;    /* a season that is not picked */
+  --hover-background: #151515;
+  --blue: #2556d6;
+  --blue-light: #6aa2ff;
+  --bar-background: rgba(0, 0, 0, 0.78);
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --side-space: 5%;
+  color-scheme: dark;
+}
+
+/* Anything marked "hidden" really goes away */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page-background);
+  color: var(--text-color);
+  font-family: var(--font);
+  padding-bottom: 60px;
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  position: relative;
+}
+
+.banner-image {
+  display: block;
+  width: 100%;
+  height: clamp(110px, 18vw, 320px);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Used when the show is not found, so the Back button still has room */
+.banner.no-picture {
+  height: 64px;
+}
+
+.back-link {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 12px;
+  padding: 8px 16px;
+  color: var(--text-color);
+  background: var(--bar-background);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  background: #000000;
+}
+
+.back-link:focus-visible,
+.season-button:focus-visible,
+.episode:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+/* ---------- Show name ---------- */
+.show-title {
+  margin: 0;
+  padding: clamp(20px, 4vw, 56px) var(--side-space);
+  font-size: clamp(28px, 5.5vw, 80px);
+  font-weight: normal;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* ---------- Seasons and episodes ---------- */
+.season-section {
+  display: grid;
+  grid-template-columns: minmax(84px, 15%) minmax(0, 1fr);
+  gap: 24px 4%;
+  align-items: start;
+  padding-inline: var(--side-space);
+  padding-top: clamp(16px, 4vw, 56px);
+}
+
+.season-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* The gray button has a darker edge and a lighter middle, like in your picture */
+.season-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 22px;
+  background: var(--season-outer);
+  color: var(--text-color);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.season-button-inner {
+  display: block;
+  padding: clamp(14px, 2.4vw, 36px) 0;
+  border-radius: 12px;
+  background: var(--season-inner-off);
+  font-size: clamp(20px, 2.6vw, 36px);
+  font-weight: bold;
+  text-align: center;
+}
+
+.season-button[aria-pressed="true"] .season-button-inner {
+  background: var(--season-inner);
+}
+
+.episode-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.episode {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 48px);
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 12px;
+  background: none;
+  color: var(--text-color);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.episode:hover {
+  background: var(--hover-background);
+}
+
+.episode-thumbnail {
+  flex: none;
+  display: block;
+  width: clamp(120px, 20vw, 330px);
+  height: auto;
+}
+
+.episode-title {
+  font-size: clamp(18px, 3.2vw, 48px);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Messages ---------- */
+.status-message {
+  margin: 32px var(--side-space) 0;
+  max-width: 560px;
+  padding: 12px 18px;
+  background: var(--bar-background);
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.not-found {
+  margin: 0;
+  padding: 40px var(--side-space);
+  font-size: 22px;
+}

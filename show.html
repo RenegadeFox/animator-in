@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Animator In.com Show</title>
+  <link rel="stylesheet" href="show.css">
+</head>
+<body>
+
+  <!-- The page for one show (show.js fills in everything using the show in the address) -->
+  <header class="banner" id="banner">
+    <img class="banner-image" id="banner-image" src="" alt="">
+    <a class="back-link" href="watch.html">← Back</a>
+  </header>
+
+  <main class="show-page">
+    <h1 class="show-title" id="show-title"></h1>
+
+    <!-- Seasons on the left, episodes on the right -->
+    <section class="season-section" id="season-section" aria-label="Seasons and episodes">
+      <nav class="season-list" id="season-list" aria-label="Seasons"></nav>
+      <ul class="episode-list" id="episode-list"></ul>
+    </section>
+
+    <!-- Shows a short message when you press an episode -->
+    <p class="status-message" id="status-message" role="status" hidden></p>
+
+    <!-- Only shows if the show in the address is not in shows.js -->
+    <p class="not-found" id="not-found" hidden>We couldn't find that show.</p>
+  </main>
+
+  <script src="shows.js"></script>
+  <script src="show.js"></script>
+</body>
+</html>
