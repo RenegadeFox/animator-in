@@ -23,7 +23,7 @@
 
     <form id="login-form" autocomplete="off">
       <div class="input-group">
-        <input type="text" id="username-input" placeholder="Username" aria-label="Username">
+        <input type="text" id="username-input" placeholder="Username" aria-label="Username" maxlength="20">
       </div>
 
       <div class="input-group">
@@ -37,6 +37,12 @@
       <button type="submit" class="login-button">Continue</button>
     </form>
 
+    <!-- Watch without logging in (you will use the Guest account) -->
+    <div class="watch-section">
+      <p class="watch-hint">No login? You can still watch as Guest.</p>
+      <button type="button" class="secondary-button" id="watch-button">Watch</button>
+    </div>
+
     <!-- Starts hidden. script.js shows it when the login is wrong.
          When the login is right, script.js sends you to portal.html instead. -->
     <div class="message-box error-message" id="error-message" role="alert" hidden>
@@ -44,6 +50,7 @@
     </div>
   </main>
 
+  <script src="account.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

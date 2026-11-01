@@ -115,6 +115,34 @@ body {
   background: var(--blue-hover);
 }
 
+/* A link that looks like the big blue button */
+.link-button {
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Outlined button for the less important choice (Watch, No change it, Cancel) */
+.secondary-button {
+  width: 100%;
+  background: transparent;
+  color: var(--blue-light);
+  border: 2px solid var(--blue);
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: inherit;
+}
+
+.secondary-button:hover {
+  background: var(--success-background);
+}
+
+.secondary-button:focus-visible,
 .login-button:focus-visible,
 .fullscreen-button:focus-visible {
   outline: 3px solid var(--blue-light);
@@ -138,6 +166,19 @@ body {
 
 .fullscreen-button:hover {
   background: var(--success-background);
+}
+
+/* ---------- Watch section (under the login form) ---------- */
+.watch-section {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--blue);
+}
+
+.watch-hint {
+  color: var(--muted-text-color);
+  font-size: 14px;
+  margin: 0;
 }
 
 /* ---------- Messages ---------- */

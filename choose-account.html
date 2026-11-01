@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Animator In.com Choose Account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="login-card">
+    <img class="logo-image" src="logo.gif" alt="Three stick figures, one red, one green and one yellow, standing in a circle">
+
+    <h1 class="login-title">Watch as <span id="account-name"></span>?</h1>
+
+    <!-- Step 1: ask if the name is okay -->
+    <div id="confirm-section">
+      <p class="login-subtitle">Are you sure you want to use this name?</p>
+      <a class="login-button link-button" id="yes-button" href="watch.html">Yes, watch</a>
+      <button type="button" class="secondary-button" id="change-button">No, change it</button>
+    </div>
+
+    <!-- Step 2 (starts hidden): type a different name -->
+    <form id="change-form" autocomplete="off" hidden>
+      <p class="login-subtitle">Type the name you want to use:</p>
+      <div class="input-group">
+        <input type="text" id="new-name-input" placeholder="New name" aria-label="New name" maxlength="20">
+      </div>
+      <div class="message-box error-message" id="name-error-message" role="alert" hidden>
+        Please type a name first.
+      </div>
+      <button type="submit" class="login-button">Save name</button>
+      <button type="button" class="secondary-button" id="cancel-button">Cancel</button>
+    </form>
+  </main>
+
+  <script src="account.js"></script>
+  <script src="choose-account.js"></script>
+</body>
+</html>
