@@ -1,0 +1,138 @@
+/* Animator In.com Ask Teal
+   Layout: the neon loading animation fills the whole screen,
+   with words at the top that change every 10 seconds. */
+
+/* ---------- Colors and font (change them here) ---------- */
+:root {
+  --screen-background: #0c0c0c;   /* the same dark color as the loading animation */
+  --neon: #4fdde6;
+  --neon-dim: #2a6a70;
+  --text-color: #e8fbfc;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+
+/* Anything marked "hidden" really goes away */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: var(--screen-background);
+  color: var(--text-color);
+  font-family: var(--font);
+  overflow: hidden;
+}
+
+/* ---------- Loading screens ---------- */
+.loading-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* "cover" makes the animation fill the screen, and the neon lines run edge to edge */
+.loading-animation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loading-words {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12%);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding-inline: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: clamp(18px, 3.4vw, 40px);
+  font-weight: bold;
+  color: var(--neon);
+  text-shadow: 0 0 8px var(--neon), 0 0 22px var(--neon-dim);
+  transition: opacity 0.4s ease;
+}
+
+/* Used while the words change, so they fade out and in */
+.loading-words.is-fading {
+  opacity: 0;
+}
+
+.cancel-link {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 12px;
+  padding: 8px 14px;
+  color: var(--neon);
+  border: 1px solid var(--neon-dim);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.cancel-link:hover {
+  border-color: var(--neon);
+}
+
+.cancel-link:focus-visible,
+.back-button:focus-visible {
+  outline: 3px solid var(--neon);
+  outline-offset: 3px;
+}
+
+/* ---------- Screen for when you have not watched anything ---------- */
+.nothing-watched-screen {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.nothing-watched-title {
+  margin: 0;
+  font-size: clamp(24px, 4vw, 44px);
+  color: var(--neon);
+  text-shadow: 0 0 10px var(--neon-dim);
+  text-wrap: balance;
+}
+
+.nothing-watched-text {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 24px);
+  max-width: 560px;
+}
+
+.back-button {
+  margin-top: 8px;
+  padding: 14px 32px;
+  color: var(--neon);
+  border: 2px solid var(--neon);
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 12px var(--neon-dim);
+}
+
+.back-button:hover {
+  background: rgba(79, 221, 230, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-words {
+    transition: none;
+  }
+}

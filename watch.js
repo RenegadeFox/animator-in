@@ -1,6 +1,8 @@
 // Animator In.com Watch
 // The main screen: your profile, the shows and movies, Ask Teal, and the search bar.
 
+var TEAL_PAGE = "teal.html"; // the page you go to when you press Ask Teal
+
 // ---------- Things on the page ----------
 var showRow = document.getElementById("show-row");
 var noResultsMessage = document.getElementById("no-results");
@@ -84,5 +86,5 @@ searchForm.addEventListener("submit", function (event) {
 
 // ---------- Ask Teal ----------
 tealButton.addEventListener("click", function () {
-  showStatusMessage("Teal will pick shows for you based on what you have watched. Coming soon!");
+  window.location.href = TEAL_PAGE; // the Ask Teal loading screens
 });
