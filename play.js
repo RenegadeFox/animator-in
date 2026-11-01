@@ -40,6 +40,15 @@ if (episode && episode.video) {
     tryPlaying.catch(function () {});
   }
 
+  // An episode counts as watched once you reach the half-way point
+  var countedAsWatched = false;
+  video.addEventListener("timeupdate", function () {
+    if (!countedAsWatched && video.duration > 0 && video.currentTime >= video.duration / 2) {
+      countedAsWatched = true;
+      markEpisodeWatched(showId, seasonNumber, episodeNumber);
+    }
+  });
+
   // Tiny credit words, then they fade away
   if (episode.credit) {
     credit.textContent = episode.credit; // textContent shows plain words only

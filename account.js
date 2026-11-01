@@ -8,6 +8,7 @@ var MAX_ACCOUNT_NAME_LENGTH = 20;
 var ACCOUNT_STORAGE_KEY = "animatorInAccountName";
 var AVATAR_STORAGE_KEY = "animatorInAvatar";
 var BACKGROUND_STORAGE_KEY = "animatorInBackground";
+var WATCHED_STORAGE_KEY = "animatorInWatched";
 
 // ---------- Profile pictures ----------
 // The "id" is the file name inside images/avatars/ (without .webp).
@@ -179,8 +180,51 @@ function saveBackgroundSetting(setting) {
 
 // ---------- Start over ----------
 // Forgets the name, the picture and the background (back to Guest)
+// ---------- What you have watched ----------
+// An episode counts as watched when you get to the HALF-way point of the video,
+// even if you stop after that. Each one is saved like  avm:0:1
+// (show id : season number : episode number, counting from 0).
+var WATCHED_FORMAT = /^[a-z0-9-]+:\d+:\d+$/;
+
+// Gives back the list of watched episodes, like ["avm:0:0", "avm:0:1"]
+function getWatchedEpisodes() {
+  var saved = readSaved(WATCHED_STORAGE_KEY);
+  if (!saved) {
+    return [];
+  }
+  return saved.split(",").filter(function (item) {
+    return WATCHED_FORMAT.test(item); // ignores anything that does not look right
+  });
+}
+
+// Saves one episode as watched (the same one twice is only saved once)
+function markEpisodeWatched(showId, seasonNumber, episodeNumber) {
+  var item = showId + ":" + seasonNumber + ":" + episodeNumber;
+  if (!WATCHED_FORMAT.test(item)) {
+    return;
+  }
+  var list = getWatchedEpisodes();
+  if (list.indexOf(item) === -1) {
+    list.push(item);
+    writeSaved(WATCHED_STORAGE_KEY, list.join(","));
+  }
+}
+
+// Gives back the ids of the shows you have watched at least one episode of
+function getWatchedShowIds() {
+  var ids = [];
+  getWatchedEpisodes().forEach(function (item) {
+    var id = item.split(":")[0];
+    if (ids.indexOf(id) === -1) {
+      ids.push(id);
+    }
+  });
+  return ids;
+}
+
 function clearAccountProfile() {
   clearAccountName();
+  writeSaved(WATCHED_STORAGE_KEY, "");
   writeSaved(AVATAR_STORAGE_KEY, "");
   writeSaved(BACKGROUND_STORAGE_KEY, "");
 }
