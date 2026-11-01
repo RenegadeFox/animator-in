@@ -35,7 +35,8 @@ var SHOW_PAGES = {
             thumbnail: "images/shows/avm-s1-e1.webp",
             video: "videos/avm-s1-e1.mp4",
             credit: "Original by Alan Becker"
-          }
+          },
+          { title: "Everything not needed.", thumbnail: "images/shows/avm-s1-e2.webp" }
         ]
       }
     ]
