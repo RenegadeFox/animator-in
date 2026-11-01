@@ -1,0 +1,241 @@
+/* Animator In.com Watch
+   Layout: top bar, then a row of show posters, then Ask Teal in the middle,
+   then the big blue search bar at the bottom. */
+
+/* ---------- Colors and sizes (change them here) ---------- */
+:root {
+  --page-background: #000000;
+  --text-color: #ffffff;
+  --muted-text-color: #9db0cc;
+  --blue: #2556d6;
+  --blue-light: #6aa2ff;
+  --bar-background: rgba(0, 0, 0, 0.78);
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --poster-height: clamp(150px, 22vw, 280px);
+  --teal-width: clamp(220px, 32vw, 380px);
+
+  color-scheme: dark;
+}
+
+/* ---------- Page ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page-background);
+  color: var(--text-color);
+  font-family: var(--font);
+  padding-inline: 16px;
+  padding-block: 16px 40px;
+  box-sizing: border-box;
+}
+
+/* Anything marked "hidden" really goes away (search uses this) */
+[hidden] {
+  display: none !important;
+}
+
+/* Hides something on the screen but keeps it for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Top bar ---------- */
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1300px;
+  margin: 0 auto 24px;
+  padding: 10px 16px;
+  background: var(--bar-background);   /* dark, so the words are easy to read on any background */
+  border-radius: 16px;
+}
+
+.site-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.profile-chip-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.profile-chip-name {
+  overflow-wrap: anywhere;
+}
+
+.profile-chip:hover .profile-chip-name,
+.log-out-link:hover {
+  text-decoration: underline;
+}
+
+.log-out-link {
+  color: var(--blue-light);
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.profile-chip:focus-visible,
+.log-out-link:focus-visible,
+.show-poster:focus-visible,
+.teal-card:focus-visible,
+.search-input:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+/* ---------- The page ---------- */
+.watch-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ---------- Shows and movies ---------- */
+.show-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.show-poster {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.show-poster img {
+  display: block;
+  height: var(--poster-height);
+  width: auto;
+  max-width: 100%;
+}
+
+.show-poster:hover {
+  transform: scale(1.05);
+}
+
+.no-results {
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-color);
+  background: var(--bar-background);
+  border-radius: 12px;
+}
+
+/* ---------- Ask Teal ---------- */
+.teal-card {
+  display: block;
+  width: var(--teal-width);
+  max-width: 100%;
+  padding: 0;
+  border: 6px solid var(--blue);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: transform 0.15s ease;
+}
+
+.teal-card:hover {
+  transform: scale(1.03);
+}
+
+.teal-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Message ---------- */
+.status-message {
+  margin: 0;
+  max-width: 560px;
+  padding: 12px 18px;
+  background: var(--bar-background);
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+/* ---------- Search bar ---------- */
+.search-form {
+  width: 100%;
+}
+
+.search-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 24px;
+  border: 8px solid var(--blue);
+  border-radius: 22px;
+  background: #000000;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 22px;
+  appearance: none;
+}
+
+.search-input::placeholder {
+  color: var(--muted-text-color);
+  opacity: 1;
+}
+
+/* ---------- Narrow screens (phones) ---------- */
+@media (max-width: 600px) {
+  .show-row {
+    gap: 12px;
+  }
+
+  .search-input {
+    font-size: 18px;
+    padding: 14px 18px;
+    border-width: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .show-poster,
+  .teal-card {
+    transition: none;
+  }
+}

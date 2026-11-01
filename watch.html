@@ -4,23 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Animator In.com Watch</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="watch.css">
 </head>
 <body>
 
-  <main class="login-card">
-    <!-- watch.js fills in the picture and the name -->
-    <img class="profile-image" id="profile-image" src="" alt="">
+  <!-- Top bar: the site name, and the profile you picked -->
+  <header class="top-bar">
+    <span class="site-name">Animator In.com</span>
+    <nav class="profile-menu" aria-label="Profile">
+      <a class="profile-chip" href="choose-account.html" title="Edit profile">
+        <img class="profile-chip-image" id="profile-image" src="" alt="">
+        <span class="profile-chip-name" id="account-name"></span>
+      </a>
+      <a class="log-out-link" href="index.html">Log out</a>
+    </nav>
+  </header>
 
-    <h1 class="login-title">Now watching as <span id="account-name"></span></h1>
-    <p class="login-subtitle">Your shows and movies will show up here soon.</p>
+  <main class="watch-page">
+    <h1 class="visually-hidden">Watch</h1>
 
-    <a class="login-button link-button" href="choose-account.html">Edit profile</a>
-    <a class="secondary-button link-button" href="index.html">Back to login</a>
+    <!-- The shows and movies (watch.js puts them in here) -->
+    <section aria-label="Shows and movies">
+      <div class="show-row" id="show-row"></div>
+      <p class="no-results" id="no-results" hidden>No shows found. Try a different name.</p>
+    </section>
+
+    <!-- Ask Teal: will pick shows for you based on what you have watched -->
+    <button type="button" class="teal-card" id="teal-button">
+      <img class="teal-image" src="images/ask-teal.webp" alt="Ask Teal">
+    </button>
+
+    <!-- Shows a short message when you press a show or Teal -->
+    <p class="status-message" id="status-message" role="status" hidden></p>
+
+    <!-- Search bar -->
+    <form class="search-form" id="search-form" role="search">
+      <input class="search-input" id="search-input" type="search" placeholder="Search shows and movies" aria-label="Search shows and movies" autocomplete="off">
+    </form>
   </main>
 
   <script src="account.js"></script>
+  <script src="shows.js"></script>
   <script src="watch.js"></script>
 </body>
 </html>

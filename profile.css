@@ -175,15 +175,6 @@
   overflow-wrap: anywhere;
 }
 
-/* ---------- Watch page picture ---------- */
-.profile-image {
-  display: block;
-  width: 150px;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 8px;
-}
-
 /* ---------- Buttons that are turned off ---------- */
 .login-button:disabled {
   opacity: 0.4;
