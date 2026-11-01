@@ -1,0 +1,98 @@
+/* Animator In.com Video
+   A black page with the video in the middle. */
+
+:root {
+  --text-color: #ffffff;
+  --bar-background: rgba(0, 0, 0, 0.78);
+  --blue-light: #6aa2ff;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  
+  --fade-seconds: 1.5s;   /* how slowly they fade away */
+  color-scheme: dark;
+}
+
+/* Anything marked "hidden" really goes away */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000000;
+  color: var(--text-color);
+  font-family: var(--font);
+}
+
+.player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* the whole picture shows, never stretched */
+  background: #000000;
+}
+
+/* Tiny words above the video controls */
+.credit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 64px);
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 4px #000000, 0 0 8px #000000;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--fade-seconds) ease;
+}
+
+.credit.fade-out {
+  opacity: 0;
+}
+
+.back-link {
+  position: fixed;
+  z-index: 2;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 12px;
+  padding: 8px 16px;
+  color: var(--text-color);
+  background: var(--bar-background);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  background: #000000;
+}
+
+.back-link:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+.not-found {
+  margin: 0;
+  padding: 80px 5% 40px;
+  font-size: 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credit {
+    transition: none;
+  }
+}

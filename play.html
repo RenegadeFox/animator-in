@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Animator In.com Video</title>
+  <link rel="stylesheet" href="play.css">
+</head>
+<body>
+
+  <!-- The video page (play.js picks the episode using the address) -->
+  <a class="back-link" id="back-link" href="watch.html">← Back</a>
+
+  <div class="player" id="player">
+    <video class="video" id="video" controls playsinline preload="metadata"></video>
+
+    <!-- Tiny words at the bottom that fade away after 5 seconds -->
+    <p class="credit" id="credit" hidden></p>
+  </div>
+
+  <!-- Only shows if the episode is not found -->
+  <p class="not-found" id="not-found" hidden>We couldn't find that video.</p>
+
+  <script src="shows.js?v=3"></script>
+  <script src="play.js"></script>
+</body>
+</html>

@@ -26,7 +26,7 @@ function showStatusMessage(words) {
 }
 
 // Puts the episodes of one season on the page
-function showEpisodes(season) {
+function showEpisodes(season, seasonIndex) {
   episodeList.textContent = ""; // empties the list
 
   season.episodes.forEach(function (episode, index) {
@@ -48,7 +48,13 @@ function showEpisodes(season) {
     title.textContent = (index + 1) + ". " + episode.title; // textContent shows plain words only
 
     button.addEventListener("click", function () {
-      showStatusMessage("“" + episode.title + "” is coming soon!");
+      if (episode.video) {
+        // Opens the video page for this exact episode
+        window.location.href = "play.html?id=" + encodeURIComponent(showId) +
+          "&season=" + seasonIndex + "&episode=" + index;
+      } else {
+        showStatusMessage("“" + episode.title + "” is coming soon!");
+      }
     });
 
     button.appendChild(thumbnail);
@@ -78,14 +84,14 @@ function showSeasons() {
         other.setAttribute("aria-pressed", other === button ? "true" : "false");
       });
       statusMessage.hidden = true;
-      showEpisodes(season);
+      showEpisodes(season, index);
     });
 
     seasonButtons.push(button);
     seasonList.appendChild(button);
   });
 
-  showEpisodes(show.seasons[0]); // starts on the first season
+  showEpisodes(show.seasons[0], 0); // starts on the first season
 }
 
 // ---------- Start ----------
