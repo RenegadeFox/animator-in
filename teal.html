@@ -15,11 +15,10 @@
     <a class="cancel-link" href="watch.html">✕ Cancel</a>
   </main>
 
-  <!-- The screen you get after loading when you have not watched anything yet.
-       This is a placeholder until the real screen is added. -->
-  <main class="nothing-watched-screen" id="nothing-watched-screen" hidden>
-    <h1 class="nothing-watched-title">You haven't watched anything yet</h1>
-    <p class="nothing-watched-text">Watch some shows and movies, then ask Teal again!</p>
+  <!-- The screens where Teal tells you what to watch (teal.js changes the words) -->
+  <main class="result-screen" id="result-screen" hidden>
+    <img class="result-background" src="images/teal-background.webp" alt="Teal, a light blue stick figure with glasses, standing in front of a big building">
+    <p class="result-words" id="result-words" role="status"></p>
     <a class="back-button" href="watch.html">Back to shows</a>
   </main>
 
