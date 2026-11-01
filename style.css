@@ -20,6 +20,7 @@
 
 /* ---------- Page ---------- */
 body {
+  margin: 0;
   background: var(--page-background);
   color: var(--text-color);
   font-family: var(--font);

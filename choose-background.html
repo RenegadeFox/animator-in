@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Animator In.com Choose Background</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <main class="login-card wide-card">
+    <h1 class="login-title">Pick a background</h1>
+    <p class="login-subtitle">Choose a color or a gradient. This is what you will see.</p>
+
+    <!-- Shows your picture and name on the background you pick -->
+    <div class="profile-preview" id="profile-preview">
+      <img class="profile-preview-image" id="preview-image" src="" alt="">
+      <span class="profile-name" id="preview-name"></span>
+    </div>
+
+    <form id="background-form">
+      <!-- choose-background.js puts the colors and gradients in here -->
+      <fieldset class="choice-group">
+        <legend>Colors</legend>
+        <div class="swatch-grid" id="solid-swatches"></div>
+      </fieldset>
+
+      <fieldset class="choice-group">
+        <legend>Gradients</legend>
+        <div class="swatch-grid" id="gradient-swatches"></div>
+      </fieldset>
+
+      <!-- Make your own -->
+      <fieldset class="choice-group custom-box" id="custom-box">
+        <legend>Make your own</legend>
+        <div class="custom-row">
+          <label for="custom-color-1-input">
+            Color 1
+            <input type="color" id="custom-color-1-input" value="#2f7bff">
+          </label>
+          <label for="custom-color-2-input">
+            Color 2
+            <input type="color" id="custom-color-2-input" value="#ec407a">
+          </label>
+        </div>
+        <label class="checkbox-row" for="custom-gradient-checkbox">
+          <input type="checkbox" id="custom-gradient-checkbox" checked>
+          Use both colors as a gradient
+        </label>
+      </fieldset>
+
+      <button type="submit" class="login-button">Done</button>
+      <a class="secondary-button link-button" href="choose-picture.html">Back</a>
+    </form>
+  </main>
+
+  <script src="account.js"></script>
+  <script src="choose-background.js"></script>
+</body>
+</html>

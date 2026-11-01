@@ -75,6 +75,7 @@ loginForm.addEventListener("submit", function (event) {
   var loginIsCorrect = passwordIsCorrect && emailIsCorrect;
 
   if (loginIsCorrect) {
+    clearAccountProfile();                // start a fresh profile
     saveAccountName(usernameInput.value); // an empty username means the Guest account
     window.location.href = PORTAL_PAGE;   // go to the new page
   } else {
@@ -84,6 +85,6 @@ loginForm.addEventListener("submit", function (event) {
 
 // ---------- Watch button (before logging in) ----------
 watchButton.addEventListener("click", function () {
-  clearAccountName(); // nobody logged in, so use the default Guest account
+  clearAccountProfile(); // nobody logged in, so use the default Guest account
   window.location.href = WATCH_PAGE;
 });

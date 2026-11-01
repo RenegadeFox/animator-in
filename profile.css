@@ -1,0 +1,195 @@
+/* Animator In.com Profile
+   Styles for the profile pages: pick a picture, pick a background, and watch.
+   These pages also load style.css first, so they share its colors. */
+
+/* ---------- Bigger card for the pickers ---------- */
+.wide-card {
+  max-width: 560px;
+}
+
+/* Hides something on the screen but keeps it for screen readers and the keyboard */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* A group of choices with a small title */
+.choice-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 18px;
+  min-width: 0;
+  text-align: left;
+}
+
+.choice-group legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--muted-text-color);
+}
+
+/* ---------- Profile picture choices ---------- */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 6px;
+}
+
+.avatar-choice {
+  display: block;
+  cursor: pointer;
+}
+
+.avatar-choice img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  border: 3px solid transparent;
+  border-radius: 24px;
+}
+
+.avatar-choice input:checked + img {
+  border-color: var(--blue-light);
+  background: var(--success-background);
+}
+
+.avatar-choice input:focus-visible + img,
+.swatch input:focus-visible + .swatch-color {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 2px;
+}
+
+/* ---------- Background choices ---------- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 10px;
+}
+
+.swatch {
+  display: block;
+  cursor: pointer;
+}
+
+.swatch-color {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+}
+
+.swatch input:checked + .swatch-color {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px var(--blue);
+}
+
+/* ---------- Make your own background ---------- */
+.custom-box {
+  border: 2px solid var(--blue);
+  border-radius: 8px;
+  padding: 10px 12px 12px;
+}
+
+/* Gives the title a black patch so the box line does not cross the words */
+.custom-box legend {
+  background: var(--card-background);
+  padding: 0 6px;
+}
+
+.custom-box.is-picked {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px var(--blue);
+}
+
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.custom-row label,
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.custom-row input[type="color"] {
+  width: 48px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid var(--blue);
+  border-radius: 6px;
+  background: #000000;
+  cursor: pointer;
+}
+
+.custom-row input[type="color"]:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.checkbox-row input {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Preview (shows the picture, name and background together) ---------- */
+.profile-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  margin-bottom: 18px;
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  background: var(--page-background);
+}
+
+.profile-preview-image {
+  width: 96px;
+  height: auto;
+}
+
+/* The name sits in a dark pill so you can read it on any background */
+.profile-name {
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-color);
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Watch page picture ---------- */
+.profile-image {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 8px;
+}
+
+/* ---------- Buttons that are turned off ---------- */
+.login-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.login-button:disabled:hover {
+  background: var(--blue);
+}

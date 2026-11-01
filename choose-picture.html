@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Animator In.com Choose Picture</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <main class="login-card wide-card">
+    <h1 class="login-title">Pick a profile picture</h1>
+    <p class="login-subtitle">Tap the picture you want to use.</p>
+
+    <form id="picture-form">
+      <!-- choose-picture.js puts the pictures in here -->
+      <fieldset class="choice-group">
+        <legend class="visually-hidden">Profile pictures</legend>
+        <div class="avatar-grid" id="avatar-grid"></div>
+      </fieldset>
+
+      <button type="submit" class="login-button" id="next-button" disabled>Next</button>
+      <a class="secondary-button link-button" href="choose-account.html">Back</a>
+    </form>
+  </main>
+
+  <script src="account.js"></script>
+  <script src="choose-picture.js"></script>
+</body>
+</html>
