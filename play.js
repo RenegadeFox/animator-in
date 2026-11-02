@@ -49,6 +49,49 @@ if (episode && episode.video) {
     }
   });
 
+  // ---------- Continue watching ----------
+  // We remember where you stopped, so you can carry on from there later.
+  var SAVE_EVERY_SECONDS = 2;
+  var MIN_SECONDS_TO_SAVE = 5;   // a few seconds in is not worth remembering
+  var lastSavedAt = -100;
+  var finishedPlaying = false;
+
+  function rememberPlace() {
+    if (finishedPlaying || !(video.duration > 0) || video.currentTime < MIN_SECONDS_TO_SAVE) {
+      return;
+    }
+    saveEpisodeProgress(showId, seasonNumber, episodeNumber, video.currentTime, video.duration);
+    lastSavedAt = video.currentTime;
+  }
+
+  video.addEventListener("timeupdate", function () {
+    if (Math.abs(video.currentTime - lastSavedAt) >= SAVE_EVERY_SECONDS) {
+      rememberPlace();
+    }
+  });
+  video.addEventListener("pause", rememberPlace);
+  window.addEventListener("pagehide", rememberPlace);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") {
+      rememberPlace();
+    }
+  });
+
+  // Jump to where you stopped (unless that was almost the end)
+  var savedSeconds = getEpisodeProgressSeconds(showId, seasonNumber, episodeNumber);
+  video.addEventListener("loadedmetadata", function () {
+    if (savedSeconds > 0 && savedSeconds < video.duration - 5) {
+      video.currentTime = savedSeconds;
+    }
+  });
+
+  // Reaching the end means you finished it, so it leaves Continue watching
+  video.addEventListener("ended", function () {
+    finishedPlaying = true;
+    markEpisodeWatched(showId, seasonNumber, episodeNumber);
+    clearEpisodeProgress(showId, seasonNumber, episodeNumber);
+  });
+
   // Tiny credit words, then they fade away
   if (episode.credit) {
     credit.textContent = episode.credit; // textContent shows plain words only

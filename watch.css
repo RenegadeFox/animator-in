@@ -220,10 +220,138 @@ body {
   opacity: 1;
 }
 
+/* ---------- Continue watching (scroll down to find it) ---------- */
+.continue-section {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 40px;
+}
+
+.continue-heading {
+  margin: 0 0 16px;
+  font-size: clamp(22px, 3vw, 32px);
+  text-shadow: 0 0 6px #000000;
+}
+
+.continue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.continue-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px;
+  background: var(--bar-background);
+  border-radius: 14px;
+}
+
+.continue-play {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.continue-thumbnail-box {
+  position: relative;
+  flex: none;
+  width: clamp(120px, 22vw, 220px);
+}
+
+.continue-thumbnail {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The bar along the bottom of the picture: how far you got */
+.continue-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.continue-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue-light);
+}
+
+.continue-words {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.continue-show-name {
+  font-size: 14px;
+  color: var(--muted-text-color);
+}
+
+.continue-episode-name {
+  font-size: clamp(18px, 2.4vw, 26px);
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.continue-time {
+  font-size: 14px;
+  color: var(--muted-text-color);
+}
+
+.continue-play:hover .continue-episode-name {
+  text-decoration: underline;
+}
+
+.finished-button {
+  flex: none;
+  padding: 12px 20px;
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  background: #000000;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.finished-button:hover {
+  background: var(--blue);
+}
+
+.continue-play:focus-visible,
+.finished-button:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
 /* ---------- Narrow screens (phones) ---------- */
 @media (max-width: 600px) {
   .show-row {
     gap: 12px;
+  }
+
+  .continue-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .finished-button {
+    width: 100%;
   }
 
   .search-input {

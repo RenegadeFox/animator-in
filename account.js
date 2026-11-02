@@ -9,6 +9,7 @@ var ACCOUNT_STORAGE_KEY = "animatorInAccountName";
 var AVATAR_STORAGE_KEY = "animatorInAvatar";
 var BACKGROUND_STORAGE_KEY = "animatorInBackground";
 var WATCHED_STORAGE_KEY = "animatorInWatched";
+var PROGRESS_STORAGE_KEY = "animatorInProgress";
 
 // ---------- Profile pictures ----------
 // The "id" is the file name inside images/avatars/ (without .webp).
@@ -232,9 +233,80 @@ function getWatchedShowIds() {
   return ids;
 }
 
+// ---------- Where you stopped (for "Continue watching") ----------
+// Each one is saved like  avm:0:0=312/942
+// (show id : season : episode = seconds you got to / how long the video is).
+// The newest is at the end of the list.
+var PROGRESS_FORMAT = /^([a-z0-9-]+):(\d+):(\d+)=(\d+)\/(\d+)$/;
+
+// Gives back a list of {showId, season, episode, seconds, duration}, oldest first
+function getProgressList() {
+  var saved = readSaved(PROGRESS_STORAGE_KEY);
+  if (!saved) {
+    return [];
+  }
+  var list = [];
+  saved.split(",").forEach(function (item) {
+    var match = PROGRESS_FORMAT.exec(item);
+    if (match) {
+      list.push({
+        showId: match[1],
+        season: parseInt(match[2], 10),
+        episode: parseInt(match[3], 10),
+        seconds: parseInt(match[4], 10),
+        duration: parseInt(match[5], 10)
+      });
+    }
+  });
+  return list;
+}
+
+function writeProgressList(list) {
+  var items = list.map(function (p) {
+    return p.showId + ":" + p.season + ":" + p.episode + "=" + p.seconds + "/" + p.duration;
+  });
+  writeSaved(PROGRESS_STORAGE_KEY, items.join(","));
+}
+
+// Takes one episode out of the list (used when it is finished)
+function clearEpisodeProgress(showId, seasonNumber, episodeNumber) {
+  writeProgressList(getProgressList().filter(function (p) {
+    return !(p.showId === showId && p.season === seasonNumber && p.episode === episodeNumber);
+  }));
+}
+
+// Remembers where you are in an episode (and moves it to the end, as the newest)
+function saveEpisodeProgress(showId, seasonNumber, episodeNumber, seconds, duration) {
+  seconds = Math.floor(seconds);
+  duration = Math.floor(duration);
+  if (!(seconds >= 0 && duration > 0) || !/^[a-z0-9-]+$/.test(showId)) {
+    return;
+  }
+  var list = getProgressList().filter(function (p) {
+    return !(p.showId === showId && p.season === seasonNumber && p.episode === episodeNumber);
+  });
+  list.push({
+    showId: showId, season: seasonNumber, episode: episodeNumber,
+    seconds: seconds, duration: duration
+  });
+  writeProgressList(list);
+}
+
+// Gives back the seconds you got to in one episode (0 if you never started it)
+function getEpisodeProgressSeconds(showId, seasonNumber, episodeNumber) {
+  var found = 0;
+  getProgressList().forEach(function (p) {
+    if (p.showId === showId && p.season === seasonNumber && p.episode === episodeNumber) {
+      found = p.seconds;
+    }
+  });
+  return found;
+}
+
 function clearAccountProfile() {
   clearAccountName();
   writeSaved(WATCHED_STORAGE_KEY, "");
+  writeSaved(PROGRESS_STORAGE_KEY, "");
   writeSaved(AVATAR_STORAGE_KEY, "");
   writeSaved(BACKGROUND_STORAGE_KEY, "");
 }

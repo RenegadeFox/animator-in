@@ -88,6 +88,107 @@ searchForm.addEventListener("submit", function (event) {
   searchShows();
 });
 
+// ---------- Continue watching ----------
+var continueSection = document.getElementById("continue-section");
+var continueList = document.getElementById("continue-list");
+
+// Turns seconds into words like 5:12
+function formatTime(totalSeconds) {
+  var minutes = Math.floor(totalSeconds / 60);
+  var seconds = totalSeconds % 60;
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+// Builds the "Continue watching" list from the places you stopped (newest first)
+function showContinueWatching() {
+  continueList.textContent = ""; // empties the list
+  var count = 0;
+
+  getProgressList().reverse().forEach(function (progress) {
+    // Only shows episodes that really exist in shows.js
+    if (!Object.prototype.hasOwnProperty.call(SHOW_PAGES, progress.showId)) {
+      return;
+    }
+    var show = SHOW_PAGES[progress.showId];
+    var season = show.seasons[progress.season];
+    var episode = season && season.episodes[progress.episode];
+    if (!episode || !episode.video) {
+      return;
+    }
+
+    var item = document.createElement("li");
+    item.className = "continue-item";
+
+    // The picture and words: press them to carry on watching
+    var playLink = document.createElement("a");
+    playLink.className = "continue-play";
+    playLink.href = "play.html?id=" + encodeURIComponent(progress.showId) +
+      "&season=" + progress.season + "&episode=" + progress.episode;
+
+    var thumbnailBox = document.createElement("span");
+    thumbnailBox.className = "continue-thumbnail-box";
+    var thumbnail = document.createElement("img");
+    thumbnail.className = "continue-thumbnail";
+    thumbnail.src = episode.thumbnail;
+    thumbnail.alt = "";
+    thumbnail.draggable = false;
+
+    // The blue bar along the bottom shows how far you got
+    var bar = document.createElement("span");
+    bar.className = "continue-bar";
+    var barFill = document.createElement("span");
+    barFill.className = "continue-bar-fill";
+    var percent = Math.min(100, Math.round((progress.seconds / progress.duration) * 100));
+    barFill.style.width = percent + "%";
+    bar.appendChild(barFill);
+    thumbnailBox.appendChild(thumbnail);
+    thumbnailBox.appendChild(bar);
+
+    // textContent shows plain words only
+    var words = document.createElement("span");
+    words.className = "continue-words";
+    var showName = document.createElement("span");
+    showName.className = "continue-show-name";
+    showName.textContent = show.title;
+    var episodeName = document.createElement("span");
+    episodeName.className = "continue-episode-name";
+    episodeName.textContent = (progress.episode + 1) + ". " + episode.title;
+    var timeLeft = document.createElement("span");
+    timeLeft.className = "continue-time";
+    timeLeft.textContent = formatTime(progress.seconds) + " of " + formatTime(progress.duration);
+    words.appendChild(showName);
+    words.appendChild(episodeName);
+    words.appendChild(timeLeft);
+
+    playLink.appendChild(thumbnailBox);
+    playLink.appendChild(words);
+
+    // "Finished" counts it as watched and takes it off the list
+    var finishedButton = document.createElement("button");
+    finishedButton.type = "button";
+    finishedButton.className = "finished-button";
+    finishedButton.textContent = "Finished";
+    finishedButton.setAttribute("aria-label", "Finished " + show.title + " " + episodeName.textContent);
+    finishedButton.addEventListener("click", function () {
+      markEpisodeWatched(progress.showId, progress.season, progress.episode);
+      clearEpisodeProgress(progress.showId, progress.season, progress.episode);
+      showContinueWatching();
+    });
+
+    item.appendChild(playLink);
+    item.appendChild(finishedButton);
+    continueList.appendChild(item);
+    count++;
+  });
+
+  continueSection.hidden = count === 0;
+}
+
+showContinueWatching();
+
+// Coming back with the Back button can show an old copy of this page, so redo the list
+window.addEventListener("pageshow", showContinueWatching);
+
 // ---------- Ask Teal ----------
 tealButton.addEventListener("click", function () {
   window.location.href = TEAL_PAGE; // the Ask Teal loading screens
