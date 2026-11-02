@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Animator In.com Ask Teal</title>
-  <link rel="stylesheet" href="teal.css">
+  <link rel="stylesheet" href="teal.css?v=2">
 </head>
 <body>
 
@@ -18,10 +18,15 @@
   <!-- The screens where Teal tells you what to watch (teal.js changes the words) -->
   <main class="result-screen" id="result-screen" hidden>
     <img class="result-background" src="images/teal-background.webp" alt="Teal, a light blue stick figure with glasses, standing in front of a big building">
-    <p class="result-words" id="result-words" role="status"></p>
+    <div class="result-text" id="result-text" role="status">
+      <p class="result-words" id="result-words"></p>
+      <!-- The reason under Teal's pick (only used when you have watched something) -->
+      <p class="result-reason" id="result-reason" hidden></p>
+    </div>
     <a class="back-button" href="watch.html">Back to shows</a>
   </main>
 
-  <script src="teal.js"></script>
+  <script src="account.js?v=3"></script>
+  <script src="teal.js?v=2"></script>
 </body>
 </html>

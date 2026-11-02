@@ -197,17 +197,27 @@ function getWatchedEpisodes() {
   });
 }
 
-// Saves one episode as watched (the same one twice is only saved once)
+// Saves one episode as watched. The list keeps the newest at the end, so a
+// show you watch again moves to the end (the same episode is never saved twice).
 function markEpisodeWatched(showId, seasonNumber, episodeNumber) {
   var item = showId + ":" + seasonNumber + ":" + episodeNumber;
   if (!WATCHED_FORMAT.test(item)) {
     return;
   }
+  var list = getWatchedEpisodes().filter(function (other) {
+    return other !== item;
+  });
+  list.push(item);
+  writeSaved(WATCHED_STORAGE_KEY, list.join(","));
+}
+
+// Gives back the id of the show you watched most recently (or "" if none)
+function getMostRecentWatchedShowId() {
   var list = getWatchedEpisodes();
-  if (list.indexOf(item) === -1) {
-    list.push(item);
-    writeSaved(WATCHED_STORAGE_KEY, list.join(","));
+  if (list.length === 0) {
+    return "";
   }
+  return list[list.length - 1].split(":")[0];
 }
 
 // Gives back the ids of the shows you have watched at least one episode of
