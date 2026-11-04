@@ -158,3 +158,70 @@ body {
 [hidden] {
   display: none !important;
 }
+
+/* ---------- Legal-document look ---------- */
+.policy-date {
+  margin-bottom: 20px;
+}
+
+.preamble p,
+.clause {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.clause {
+  margin: 0 0 12px;
+}
+
+.clause-number {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: bold;
+  color: var(--blue-light);
+}
+
+.toc {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: #000000;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+}
+
+.toc h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--blue-light);
+}
+
+.toc-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  columns: 2 280px;
+  column-gap: 24px;
+  font-size: 14px;
+}
+
+.toc-list li {
+  margin-bottom: 6px;
+  break-inside: avoid;
+}
+
+.toc-list a {
+  color: var(--text-color);
+}
+
+.toc-list a:hover {
+  color: var(--blue-light);
+}
+
+.policy section {
+  scroll-margin-top: 70px;
+}
+
+.signature-line {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
