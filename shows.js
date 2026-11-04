@@ -25,7 +25,7 @@ var SHOWS = [
 var SHOW_PAGES = {
   avm: {
     title: "Animation versus Minecraft",
-    banner: "images/shows/avm-banner.webp",
+    banner: "images/shows/avm-banner-new.webp",
     seasons: [
       {
         name: "S1",
