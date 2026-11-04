@@ -225,3 +225,107 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   font-style: italic;
 }
+
+/* ---------- The Cookie Man (bottom of the screen) ---------- */
+body {
+  padding-bottom: 190px;
+}
+
+.cookie-man {
+  position: fixed;
+  z-index: 6;               /* above the big words, so you can keep poking him */
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+  width: 110px;
+  margin: 0;
+  padding: 0;
+  margin-left: -55px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;      /* fast taps do not zoom the page */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: cookie-bob 1.6s ease-in-out infinite;
+}
+
+.cookie-man-picture {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cookie-man:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.cookie-man.is-poked .cookie-man-picture {
+  animation: cookie-squish 0.25s ease;
+}
+
+/* Being eaten: he shakes, then shrinks away */
+.cookie-man.is-eaten {
+  animation: cookie-munch 0.3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cookie-man.is-eaten .cookie-man-picture {
+  animation: cookie-shrink 3s ease-in forwards;
+}
+
+.touch-overlay {
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.96);
+  pointer-events: none;     /* taps go through to the cookie man */
+}
+
+.touch-text {
+  margin: 0;
+  width: 100%;
+  color: #ffd84d;
+  font-weight: 900;
+  line-height: 0.95;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+@keyframes cookie-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes cookie-squish {
+  0% { transform: scale(1, 1); }
+  40% { transform: scale(1.2, 0.8); }
+  100% { transform: scale(1, 1); }
+}
+
+@keyframes cookie-munch {
+  0%, 100% { transform: translateX(-4px) rotate(-3deg); }
+  50% { transform: translateX(4px) rotate(3deg); }
+}
+
+@keyframes cookie-shrink {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-man,
+  .cookie-man.is-eaten,
+  .cookie-man.is-poked .cookie-man-picture {
+    animation: none;
+  }
+  .cookie-man.is-eaten .cookie-man-picture {
+    animation: cookie-shrink 3s steps(1, end) forwards;
+  }
+}
