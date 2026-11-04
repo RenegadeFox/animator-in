@@ -14,3 +14,19 @@ try {
 } catch (error) {
   // No referrer, so the Back button stays on its normal link (the login page)
 }
+
+// ---------- The Cookie Man ----------
+var cookieAnswer = document.getElementById("cookie-answer");
+
+function answerCookieMan(words) {
+  cookieAnswer.textContent = words;
+  cookieAnswer.hidden = false;
+}
+
+document.getElementById("cookie-yes").addEventListener("click", function () {
+  answerCookieMan("Great choice! Your cookie man is on his way. (He is not real. Please do not wait by the door.)");
+});
+
+document.getElementById("cookie-no").addEventListener("click", function () {
+  answerCookieMan("Okay! We still will not throw milk at you.");
+});
