@@ -67,11 +67,11 @@ body {
   position: absolute;
   right: calc(env(safe-area-inset-right, 0px) + 16px);
   bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
-  padding: 10px 20px;
+  padding: 10px 28px;
   color: #000000;
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid #ffffff;
-  border-radius: 6px;
+  background: #4d94ff;
+  border: 2px solid #4d94ff;
+  border-radius: 999px;   /* round on both ends with a straight middle, like a pill */
   font-family: inherit;
   font-size: 16px;
   font-weight: bold;
@@ -81,7 +81,8 @@ body {
 }
 
 .skip-button:hover {
-  background: #ffffff;
+  background: #7db0ff;
+  border-color: #7db0ff;
 }
 
 .skip-button:focus-visible {
