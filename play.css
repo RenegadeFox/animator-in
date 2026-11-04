@@ -62,6 +62,37 @@ body {
   opacity: 0;
 }
 
+/* The Skip intro button, above the video controls on the right */
+.skip-button {
+  position: absolute;
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+  padding: 10px 20px;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity var(--fade-seconds) ease;
+}
+
+.skip-button:hover {
+  background: #ffffff;
+}
+
+.skip-button:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+.skip-button.fade-out {
+  opacity: 0;
+}
+
 .back-link {
   position: fixed;
   z-index: 2;
@@ -92,7 +123,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .credit {
+  .credit,
+  .skip-button {
     transition: none;
   }
 }

@@ -3,11 +3,14 @@
 // play.html?id=avm&season=0&episode=0
 
 var CREDIT_SECONDS = 5; // how long the tiny words stay before they fade
+var SKIP_BUTTON_SECONDS = 5; // how long the Skip intro button stays before it fades
+var SKIP_FADE_SECONDS = 1.5; // must match --fade-seconds in play.css
 
 // ---------- Things on the page ----------
 var player = document.getElementById("player");
 var video = document.getElementById("video");
 var credit = document.getElementById("credit");
+var skipButton = document.getElementById("skip-button");
 var backLink = document.getElementById("back-link");
 var notFoundMessage = document.getElementById("not-found");
 
@@ -91,6 +94,52 @@ if (episode && episode.video) {
     markEpisodeWatched(showId, seasonNumber, episodeNumber);
     clearEpisodeProgress(showId, seasonNumber, episodeNumber);
   });
+
+  // ---------- Skip intro ----------
+  // At the "from" time the button appears for a few seconds, then fades away.
+  // Pressing it jumps the video to the "to" time.
+  var skipIntro = episode.skipIntro;
+  if (skipIntro) {
+    var skipAlreadyShown = false;
+    var skipFadeTimer = null;
+    var skipHideTimer = null;
+
+    function hideSkipButton() {
+      window.clearTimeout(skipFadeTimer);
+      window.clearTimeout(skipHideTimer);
+      skipButton.hidden = true;
+      skipButton.classList.remove("fade-out");
+    }
+
+    function showSkipButton() {
+      hideSkipButton();
+      skipButton.hidden = false;
+      skipFadeTimer = window.setTimeout(function () {
+        skipButton.classList.add("fade-out");
+        skipHideTimer = window.setTimeout(hideSkipButton, SKIP_FADE_SECONDS * 1000);
+      }, SKIP_BUTTON_SECONDS * 1000);
+    }
+
+    video.addEventListener("timeupdate", function () {
+      var time = video.currentTime;
+      if (time >= skipIntro.from && time < skipIntro.to) {
+        // Only shows when the video first gets to the start of the intro,
+        // not when you jump into the middle of it
+        if (!skipAlreadyShown && time < skipIntro.from + 2) {
+          skipAlreadyShown = true;
+          showSkipButton();
+        }
+      } else {
+        skipAlreadyShown = false; // outside the intro, so it can show again next time
+        hideSkipButton();
+      }
+    });
+
+    skipButton.addEventListener("click", function () {
+      hideSkipButton();
+      video.currentTime = skipIntro.to;
+    });
+  }
 
   // Tiny credit words, then they fade away
   if (episode.credit) {

@@ -19,6 +19,8 @@ var SHOWS = [
   { title: "Coming Soon", image: "images/shows/coming-soon.webp" }
 ];
 
+// An episode with a "skipIntro" gets a Skip intro button: it shows when the video reaches "from"
+// and jumps to "to" (both in seconds). Leave it out for episodes without an intro to skip.
 // An episode with a "video" plays it. The "credit" words show for 5 seconds at the start.
 // The pages for each show: the banner picture at the top, the name,
 // and the seasons with their episodes (episodes are numbered in order).
@@ -34,7 +36,9 @@ var SHOW_PAGES = {
             title: "The rediscovery",
             thumbnail: "images/shows/avm-s1-e1.webp",
             video: "videos/avm-s1-e1.mp4",
-            credit: "Original by Alan Becker"
+            credit: "Original by Alan Becker",
+            // "Skip intro" shows at "from" (2:47) and jumps to "to" (4:13). Times are in seconds.
+            skipIntro: { from: 167, to: 253 }
           },
           {
             title: "Everything not needed.",

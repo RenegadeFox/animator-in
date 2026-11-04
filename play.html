@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Animator In.com Video</title>
-  <link rel="stylesheet" href="play.css">
+  <link rel="stylesheet" href="play.css?v=2">
 </head>
 <body>
 
@@ -16,6 +16,9 @@
 
     <!-- Tiny words at the bottom that fade away after 5 seconds -->
     <p class="credit" id="credit" hidden></p>
+
+    <!-- Skip intro button: shows for a few seconds when the intro starts (play.js) -->
+    <button type="button" class="skip-button" id="skip-button" hidden>Skip intro</button>
   </div>
 
   <!-- Only shows if the episode is not found -->
@@ -23,6 +26,6 @@
 
   <script src="account.js?v=4"></script>
   <script src="shows.js?v=6"></script>
-  <script src="play.js?v=2"></script>
+  <script src="play.js?v=3"></script>
 </body>
 </html>
