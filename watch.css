@@ -339,6 +339,20 @@ body {
   outline-offset: 3px;
 }
 
+/* ---------- Privacy Policy link (very bottom) ---------- */
+.footer-links {
+  margin: 24px 0 0;
+  font-size: 13px;
+}
+
+.footer-link {
+  color: var(--muted-text-color);
+}
+
+.footer-link:hover {
+  color: var(--blue-light);
+}
+
 /* ---------- Narrow screens (phones) ---------- */
 @media (max-width: 600px) {
   .show-row {

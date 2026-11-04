@@ -182,6 +182,20 @@ body {
   margin: 0;
 }
 
+/* ---------- Privacy Policy link (bottom of the card) ---------- */
+.footer-links {
+  margin: 20px 0 0;
+  font-size: 13px;
+}
+
+.footer-link {
+  color: var(--muted-text-color);
+}
+
+.footer-link:hover {
+  color: var(--blue-light);
+}
+
 /* ---------- Messages ---------- */
 .message-box {
   margin-top: 20px;
