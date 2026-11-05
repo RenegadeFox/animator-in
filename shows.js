@@ -44,7 +44,9 @@ var SHOW_PAGES = {
             title: "Everything not needed.",
             thumbnail: "images/shows/avm-s1-e2.webp",
             video: "videos/avm-s1-e2.mp4",
-            credit: "Original by Alan Becker"
+            credit: "Original by Alan Becker",
+            // "Skip intro" shows at 0:46 and jumps to 2:09 (times are in seconds)
+            skipIntro: { from: 46, to: 129 }
           }
         ]
       }
