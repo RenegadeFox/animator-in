@@ -95,12 +95,19 @@ if (episode && episode.video) {
     clearEpisodeProgress(showId, seasonNumber, episodeNumber);
   });
 
-  // ---------- Skip intro ----------
-  // At the "from" time the button appears for a few seconds, then fades away.
-  // Pressing it jumps the video to the "to" time.
-  var skipIntro = episode.skipIntro;
-  if (skipIntro) {
-    var skipAlreadyShown = false;
+  // ---------- Skip buttons (Skip intro, Skip credits) ----------
+  // At a section's "from" time the button appears for a few seconds, then fades away.
+  // Pressing it jumps the video to the section's "to" time.
+  var skipSections = [];
+  if (episode.skipIntro) {
+    skipSections.push({ label: "Skip intro", from: episode.skipIntro.from, to: episode.skipIntro.to, shown: false });
+  }
+  if (episode.skipCredits) {
+    skipSections.push({ label: "Skip credits", from: episode.skipCredits.from, to: episode.skipCredits.to, shown: false });
+  }
+
+  if (skipSections.length > 0) {
+    var activeSection = null; // the section the button is showing for right now
     var skipFadeTimer = null;
     var skipHideTimer = null;
 
@@ -109,10 +116,13 @@ if (episode && episode.video) {
       window.clearTimeout(skipHideTimer);
       skipButton.hidden = true;
       skipButton.classList.remove("fade-out");
+      activeSection = null;
     }
 
-    function showSkipButton() {
+    function showSkipButton(section) {
       hideSkipButton();
+      activeSection = section;
+      skipButton.textContent = section.label; // textContent shows plain words only
       skipButton.hidden = false;
       skipFadeTimer = window.setTimeout(function () {
         skipButton.classList.add("fade-out");
@@ -122,22 +132,29 @@ if (episode && episode.video) {
 
     video.addEventListener("timeupdate", function () {
       var time = video.currentTime;
-      if (time >= skipIntro.from && time < skipIntro.to) {
-        // Only shows when the video first gets to the start of the intro,
-        // not when you jump into the middle of it
-        if (!skipAlreadyShown && time < skipIntro.from + 2) {
-          skipAlreadyShown = true;
-          showSkipButton();
+      skipSections.forEach(function (section) {
+        if (time >= section.from && time < section.to) {
+          // Only shows when the video first gets to the start of the section,
+          // not when you jump into the middle of it
+          if (!section.shown && time < section.from + 2) {
+            section.shown = true;
+            showSkipButton(section);
+          }
+        } else {
+          section.shown = false; // outside it, so it can show again next time
+          if (activeSection === section) {
+            hideSkipButton();
+          }
         }
-      } else {
-        skipAlreadyShown = false; // outside the intro, so it can show again next time
-        hideSkipButton();
-      }
+      });
     });
 
     skipButton.addEventListener("click", function () {
-      hideSkipButton();
-      video.currentTime = skipIntro.to;
+      if (activeSection) {
+        var jumpTo = activeSection.to;
+        hideSkipButton();
+        video.currentTime = jumpTo;
+      }
     });
   }
 

@@ -19,8 +19,8 @@ var SHOWS = [
   { title: "Coming Soon", image: "images/shows/coming-soon.webp" }
 ];
 
-// An episode with a "skipIntro" gets a Skip intro button: it shows when the video reaches "from"
-// and jumps to "to" (both in seconds). Leave it out for episodes without an intro to skip.
+// An episode with a "skipIntro" or "skipCredits" gets a Skip button: it shows when the video reaches
+// "from" and jumps to "to" (both in seconds). Leave them out for episodes that do not need one.
 // An episode with a "video" plays it. The "credit" words show for 5 seconds at the start.
 // The pages for each show: the banner picture at the top, the name,
 // and the seasons with their episodes (episodes are numbered in order).
@@ -38,7 +38,9 @@ var SHOW_PAGES = {
             video: "videos/avm-s1-e1.mp4",
             credit: "Original by Alan Becker",
             // "Skip intro" shows at "from" (2:47) and jumps to "to" (4:13). Times are in seconds.
-            skipIntro: { from: 167, to: 253 }
+            skipIntro: { from: 167, to: 253 },
+            // "Skip credits" shows at 16:50 and jumps to 18:12
+            skipCredits: { from: 1010, to: 1092 }
           },
           {
             title: "Everything not needed.",
@@ -46,7 +48,9 @@ var SHOW_PAGES = {
             video: "videos/avm-s1-e2.mp4",
             credit: "Original by Alan Becker",
             // "Skip intro" shows at 0:46 and jumps to 2:09 (times are in seconds)
-            skipIntro: { from: 46, to: 129 }
+            skipIntro: { from: 46, to: 129 },
+            // "Skip credits" shows at 17:52 and jumps to 19:13
+            skipCredits: { from: 1072, to: 1153 }
           }
         ]
       }
