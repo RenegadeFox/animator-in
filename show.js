@@ -100,7 +100,11 @@ if (show) {
   bannerImage.src = show.banner;
   bannerImage.alt = show.title;
   showTitle.textContent = show.title;
-  showSeasons();
+  if (show.seasons.length > 0) {
+    showSeasons();
+  } else {
+    seasonSection.hidden = true; // no episodes yet, so no season button or list
+  }
 } else {
   banner.classList.add("no-picture"); // keeps room for the Back button
   bannerImage.hidden = true;

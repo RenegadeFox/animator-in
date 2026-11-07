@@ -15,7 +15,7 @@ var SHOWS = [
   { title: "AvA Victim", image: "images/shows/ava-victim.webp" },
   { title: "AvM", image: "images/shows/avm.webp", page: "show.html?id=avm" },
   { title: "Enemy How It Began", image: "images/shows/enemy-how-it-began.webp" },
-  { title: "AvP", image: "images/shows/avp.webp" },
+  { title: "Green, Influencer Arc", image: "images/shows/green-influencer-arc.webp", page: "show.html?id=green-influencer-arc" },
   { title: "Coming Soon", image: "images/shows/coming-soon.webp" }
 ];
 
@@ -24,7 +24,13 @@ var SHOWS = [
 // An episode with a "video" plays it. The "credit" words show for 5 seconds at the start.
 // The pages for each show: the banner picture at the top, the name,
 // and the seasons with their episodes (episodes are numbered in order).
+// A show with "seasons: []" has no episodes yet, but its page still opens.
 var SHOW_PAGES = {
+  "green-influencer-arc": {
+    title: "Green, Influencer Arc",
+    banner: "images/shows/green-influencer-arc-banner.webp",
+    seasons: []
+  },
   avm: {
     title: "Animation versus Minecraft",
     banner: "images/shows/avm-banner-new.webp",
